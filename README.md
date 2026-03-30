@@ -336,9 +336,9 @@ MIT License - Free for personal and commercial use.
 
 **Live Demo**: Open `index.html` in any modern browser to view all 50 loaders in action.
 
-**Last Updated**: March 2026
+**Last Updated**: 30th March 2026
 
 **Version**: 1.0.0
-```
+
 
 
