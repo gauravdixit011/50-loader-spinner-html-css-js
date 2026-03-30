@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>50 Loaders – Basic to Advanced | CSS + JS Animation Vault</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .header h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            color: #4a627a;
+            margin-top: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .counter-badge {
+            display: inline-block;
+            background: #2c3e66;
+            color: white;
+            border-radius: 40px;
+            padding: 0.2rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-top: 0.8rem;
+        }
+
+        /* GRID SYSTEM — 50 loaders in responsive cards */
+        .loaders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.6rem;
+        }
+
+        .loader-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255,255,240,0.6);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .loader-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 40px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .loader-preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 170px;
+            background: #ffffffdd;
+            border-bottom: 1px solid #e9edf2;
+            padding: 1.5rem 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .loader-info {
+            padding: 1rem 1rem 1.2rem;
+        }
+
+        .loader-title {
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: -0.2px;
+            background: #eef3fc;
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            color: #1f4a7c;
+        }
+
+        .loader-desc {
+            font-size: 0.75rem;
+            color: #5b6f86;
+            margin-top: 0.5rem;
+            line-height: 1.4;
+        }
+
+        /* ---- GLOBAL loader reset: each loader container uses flex center & isolated styles ---- */
+        .loader-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            min-height: 120px;
+        }
+
+        /* ------------------------------
+           50 UNIQUE LOADER STYLES (CSS + JS enhanced)
+           Each loader has its own class or inline style.
+           We'll generate using CSS classes .ldr1 ... .ldr50
+           plus a few keyframe definitions.
+        --------------------------------- */
+        
+        /* Base shared keyframes */
+        @keyframes spin360 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; transform: scale(0.9);}
+            50% { opacity: 1; transform: scale(1.1);}
+        }
+        @keyframes bounceShift {
+            0%,100%{ transform: translateY(0);}
+            50%{ transform: translateY(-12px);}
+        }
+        @keyframes waveStretch {
+            0%,100%{ transform: scaleX(1);}
+            50%{ transform: scaleX(1.8);}
+        }
+        @keyframes rotateScale {
+            0% { transform: rotate(0deg) scale(0.6); opacity: 0;}
+            50% { transform: rotate(180deg) scale(1); opacity: 1;}
+            100% { transform: rotate(360deg) scale(0.6); opacity: 0;}
+        }
+        @keyframes dashOffset {
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes flicker {
+            0%,100%{ opacity:0.2; text-shadow:0 0 0px cyan;}
+            50%{ opacity:1; text-shadow:0 0 12px cyan;}
+        }
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(20px) rotate(0deg);}
+            to { transform: rotate(360deg) translateX(20px) rotate(-360deg);}
+        }
+        @keyframes flip3d {
+            0% { transform: perspective(200px) rotateX(0deg);}
+            100% { transform: perspective(200px) rotateX(360deg);}
+        }
+        @keyframes morph {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;}
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;}
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;}
+        }
+        @keyframes particlePop {
+            0% { transform: scale(0); opacity: 0;}
+            60% { transform: scale(1.2); opacity: 1;}
+            100% { transform: scale(0); opacity: 0;}
+        }
+
+        /* Individual loader styles (numbered classes) */
+        .ldr1 { width: 40px; height: 40px; border: 4px solid #e2e8f0; border-top-color: #3b82f6; border-radius: 50%; animation: spin360 0.8s linear infinite; }
+        .ldr2 { width: 48px; height: 48px; background: conic-gradient(from 0deg, #f97316, #facc15, #f97316); border-radius: 50%; animation: spin360 1s linear infinite; mask: radial-gradient(circle, transparent 55%, black 56%);}
+        .ldr3 { display: flex; gap: 6px; } .ldr3 span { width: 12px; height: 12px; background: #06b6d4; border-radius: 50%; animation: pulseGlow 0.8s infinite alternate; } .ldr3 span:nth-child(2){ animation-delay: 0.2s; } .ldr3 span:nth-child(3){ animation-delay: 0.4s; }
+        .ldr4 { width: 50px; height: 50px; border: 5px dotted #8b5cf6; border-radius: 50%; animation: spin360 3s linear infinite; }
+        .ldr5 { width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 35px solid #ec489a; animation: bounceShift 0.8s infinite ease; }
+        .ldr6 { width: 45px; height: 45px; background: linear-gradient(45deg, #10b981, #34d399); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; animation: morph 2s infinite; }
+        .ldr7 { display: flex; gap: 5px; align-items: flex-end; } .ldr7 div { width: 10px; height: 30px; background: #f43f5e; animation: waveStretch 0.9s infinite ease-in-out; transform-origin: bottom; } .ldr7 div:nth-child(2){ animation-delay: 0.2s; background: #f97316;} .ldr7 div:nth-child(3){ animation-delay: 0.4s; background: #eab308;}
+        .ldr8 { position: relative; width: 50px; height: 50px; } .ldr8::before, .ldr8::after { content:''; position: absolute; border-radius:50%; background:#6366f1; animation:pulseGlow 1s infinite; } .ldr8::before { width:100%; height:100%; opacity:0.5; } .ldr8::after { width:60%; height:60%; top:20%; left:20%; background:#a5f3fc; animation-delay:0.5s; }
+        .ldr9 { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #facc15, #eab308); box-shadow: 0 0 0 2px white, 0 0 0 5px #facc1540; animation: spin360 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; }
+        .ldr10 { font-size: 2rem; font-weight: bold; font-family: monospace; animation: flicker 1.2s infinite; color: #0891b2; } .ldr10::after { content: '⚡'; }
+        .ldr11 { width: 0; height: 0; border: 20px solid transparent; border-top: 30px solid #14b8a6; border-radius: 50%; animation: spin360 1s linear infinite; }
+        .ldr12 { display: flex; gap: 8px; } .ldr12 div { width: 10px; height: 10px; background-color: #c084fc; border-radius: 2px; animation: spin360 0.8s infinite alternate; } .ldr12 div:nth-child(2){ animation-delay:0.2s; background:#a855f7; } .ldr12 div:nth-child(3){ animation-delay:0.4s; }
+        .ldr13 { width: 55px; height: 55px; background: repeating-linear-gradient(45deg, #ef4444 0px, #ef4444 8px, #fff 8px, #fff 16px); border-radius: 12px; animation: spin360 2s linear infinite; }
+        .ldr14 svg { width: 55px; height: 55px; animation: spin360 1.2s linear infinite; } .ldr14 circle { fill: none; stroke: #3b82f6; stroke-width: 4; stroke-dasharray: 80; stroke-dashoffset: 80; animation: dashOffset 1.2s linear infinite; }
+        .ldr15 { width: 45px; height: 45px; background: #facc15; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); animation: rotateScale 1.2s infinite; }
+        .ldr16 { width: 60px; height: 60px; background: radial-gradient(circle, #ff6b6b 10%, transparent 10%); background-size: 12px 12px; animation: spin360 3s linear infinite; border-radius: 50%; }
+        .ldr17 { display: flex; gap: 4px; } .ldr17 div { width: 8px; height: 35px; background: #fb7185; animation: bounceShift 0.7s infinite alternate; transform-origin: center; } .ldr17 div:nth-child(2){ animation-delay:0.1s; } .ldr17 div:nth-child(3){ animation-delay:0.2s; } .ldr17 div:nth-child(4){ animation-delay:0.3s; }
+        .ldr18 { width: 48px; height: 48px; border: 3px solid transparent; border-top: 3px solid #0ea5e9; border-right: 3px solid #f97316; border-radius: 50%; animation: spin360 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; }
+        .ldr19 { font-size: 2rem; filter: drop-shadow(0 0 2px #ff8c00); animation: spin360 2s linear infinite; display: inline-block; transform-origin: center; } .ldr19::before { content: '🌀'; }
+        .ldr20 { width: 40px; height: 40px; background: #d9f99d; border-radius: 50%; position: relative; overflow: hidden; } .ldr20::after { content:''; position: absolute; width:200%; height:200%; background: radial-gradient(circle, #22c55e, transparent); animation: spin360 2s linear infinite; top:-50%; left:-50%; }
+        .ldr21 { width: 60px; height: 60px; border-radius: 50%; background: conic-gradient(from 0deg, #f97316, #facc15, #84cc16, #f97316); animation: spin360 0.9s linear infinite; mask: radial-gradient(circle, transparent 55%, black 65%);}
+        .ldr22 { display: flex; justify-content: space-between; width: 60px; } .ldr22 span { width: 12px; height: 12px; background: #f472b6; border-radius: 2px; animation: waveStretch 0.7s infinite alternate; } .ldr22 span:nth-child(2){ animation-delay:0.2s; } .ldr22 span:nth-child(3){ animation-delay:0.4s; }
+        .ldr23 { width: 55px; height: 55px; border: 4px dashed #facc15; border-radius: 50%; animation: spin360 2s linear infinite; box-shadow: 0 0 5px gold; }
+        .ldr24 { width: 40px; height: 40px; background: #a5f3fc; border-radius: 0%; animation: morph 1s infinite; }
+        .ldr25 { position: relative; width: 60px; height: 60px; } .ldr25 div { position: absolute; width: 20px; height: 20px; background: #f97316; border-radius: 50%; animation: orbit 1.5s linear infinite; top: 20px; left: 20px; } .ldr25 div:nth-child(2){ animation-delay:0.5s; background:#3b82f6; width:16px; height:16px; top:22px; left:22px;}
+        .ldr26 { width: 50px; height: 50px; background: repeating-linear-gradient(90deg, #2dd4bf, #2dd4bf 10px, #facc15 10px, #facc15 20px); border-radius: 12px; animation: spin360 1.2s steps(4) infinite; }
+        .ldr27 { display: flex; gap: 12px; } .ldr27 span { width: 12px; height: 12px; background: #f43f5e; border-radius: 50%; animation: particlePop 1s infinite; } .ldr27 span:nth-child(2){ animation-delay:0.2s; } .ldr27 span:nth-child(3){ animation-delay:0.4s; }
+        .ldr28 { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #c026d3, #f0abfc); animation: flip3d 1.2s infinite; }
+        .ldr29 { width: 70px; height: 30px; background: linear-gradient(90deg, #fde047 0%, #fde047 30%, #facc15 30%, #facc15 70%, #eab308 70%); background-size: 200% 100%; animation: spin360 1s linear infinite; border-radius: 30px; }
+        .ldr30 { font-size: 2.4rem; font-weight: bold; animation: bounceShift 0.5s infinite; display: inline-block; } .ldr30::after { content: '⌛'; }
+        .ldr31 { width: 48px; height: 48px; border: 6px double #0284c7; border-radius: 50%; animation: spin360 1s infinite linear; }
+        .ldr32 { display: flex; gap: 8px; } .ldr32 span { width: 18px; height: 18px; background: #14b8a6; clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); animation: pulseGlow 1s infinite alternate; } .ldr32 span:nth-child(2){ animation-delay:0.3s; }
+        .ldr33 { width: 50px; height: 50px; background: radial-gradient(circle at 35% 35%, #fff, #facc15); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; animation: morph 1.5s infinite; }
+        .ldr34 { display: flex; gap: 5px; } .ldr34 div { width: 12px; height: 12px; background: #a21caf; border-radius: 1px; animation: spin360 0.6s infinite alternate; transform-origin: center; } .ldr34 div:nth-child(2){ animation-delay:0.1s; background:#d946ef;}
+        .ldr35 { width: 0; height: 0; border-left: 24px solid transparent; border-right: 24px solid transparent; border-top: 40px solid #f97316; animation: bounceShift 0.9s infinite; }
+        .ldr36 { width: 60px; height: 60px; background: #facc15; clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%); animation: spin360 2s infinite; }
+        .ldr37 { position: relative; width: 50px; height: 50px; background: #eef2ff; border-radius: 8px; overflow: hidden; } .ldr37::after { content:''; position: absolute; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, #3b82f6, transparent); animation: spin360 1s linear infinite; top:0; left:-100%; }
+        .ldr38 { width: 56px; height: 56px; background: conic-gradient(from 90deg, #ff3b3b, #ff9f3b, #ff3b3b); border-radius: 50%; animation: spin360 1.2s infinite; mask: radial-gradient(circle, transparent 58%, black 60%);}
+        .ldr39 { font-size: 2rem; filter: drop-shadow(0 0 3px #ffa500); animation: rotateScale 0.9s infinite; display: inline-block; } .ldr39::before { content: '⚙️'; }
+        .ldr40 { display: flex; gap: 6px; transform: skewX(-5deg); } .ldr40 div { width: 14px; height: 14px; background: #38bdf8; animation: pulseGlow 0.9s infinite; border-radius: 2px; } .ldr40 div:nth-child(2){ animation-delay:0.2s; } .ldr40 div:nth-child(3){ animation-delay:0.4s; }
+        .ldr41 { width: 40px; height: 40px; border-radius: 50%; background: white; box-shadow: inset 0 0 0 3px #facc15, 0 0 0 3px #facc15; animation: spin360 1s linear infinite; }
+        .ldr42 { width: 55px; height: 55px; background: repeating-linear-gradient(45deg, #06b6d4, #06b6d4 8px, #67e8f9 8px, #67e8f9 16px); border-radius: 20px; animation: flip3d 1s infinite; }
+        .ldr43 { width: 64px; height: 64px; background: #facc15; mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 2L15 8H22L16 12L19 18L12 14L5 18L8 12L2 8H9L12 2Z"/></svg>') no-repeat center; mask-size: contain; animation: pulseGlow 0.8s infinite; background-size: cover; background-color: #facc15; }
+        .ldr44 { display: flex; gap: 6px; } .ldr44 div { width: 8px; height: 35px; background: #ec489a; animation: waveStretch 0.7s infinite ease; transform-origin: bottom; } .ldr44 div:nth-child(2){ animation-delay:0.15s;} .ldr44 div:nth-child(3){ animation-delay:0.3s;}
+        .ldr45 { width: 56px; height: 56px; border: 3px solid #c084fc; border-radius: 50%; border-top-color: transparent; border-bottom-color: #a855f7; animation: spin360 0.8s linear infinite; box-shadow: 0 0 8px #c084fc;}
+        .ldr46 { width: 48px; height: 48px; background: radial-gradient(circle at 30% 30%, #facc15, #f59e0b); border-radius: 12px; animation: morph 1.2s infinite; }
+        .ldr47 { display: flex; gap: 4px; } .ldr47 div { width: 8px; height: 28px; background: #475569; animation: bounceShift 0.6s infinite alternate; transform-origin: center; border-radius: 4px;} .ldr47 div:nth-child(2){ animation-delay:0.1s;} .ldr47 div:nth-child(3){ animation-delay:0.2s;}
+        .ldr48 { width: 50px; height: 50px; background: repeating-linear-gradient(90deg, #0f172a, #0f172a 10px, #334155 10px, #334155 20px); border-radius: 8px; animation: spin360 1.8s infinite linear; }
+        .ldr49 { font-size: 2rem; font-weight: 100; animation: flip3d 1.4s infinite; display: inline-block; } .ldr49::before { content: '🔮'; }
+        .ldr50 { width: 70px; height: 70px; background: conic-gradient(from 0deg, #f97316, #facc15, #84cc16, #22c55e, #f97316); border-radius: 50%; animation: spin360 2s infinite; filter: blur(1px) drop-shadow(0 0 3px gold); }
+        
+        /* advanced js loader sample (interactive count) */
+        .js-loader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .js-progress-ring {
+            width: 60px;
+            height: 60px;
+        }
+        .js-progress-ring circle {
+            transition: stroke-dashoffset 0.1s linear;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        .js-loader span {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #2c3e66;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: #5f7f9e;
+            border-top: 1px solid #cfdfed;
+            padding-top: 2rem;
+        }
+        @media (max-width: 640px) {
+            .loaders-grid { gap: 1rem; }
+            .loader-preview { min-height: 140px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>⚡ 50 Loaders Spectrum ⚡</h1>
+        <p>Basic spinners · advanced morphing · CSS/JS hybrids · interactive progress</p>
+        <div class="counter-badge">50 unique loaders — from minimal to experimental</div>
+    </div>
+    <div class="loaders-grid" id="loadersGrid"></div>
+    <footer>✨ 50 separate loader animations — pure CSS + enhanced with JavaScript (live ring) ✨</footer>
+</div>
+
+<script>
+    // Meta data for 50 loaders: titles and descriptions
+    const loaderMeta = Array.from({ length: 50 }, (_, i) => {
+        const level = i < 15 ? "Basic" : (i < 35 ? "Intermediate" : "Advanced");
+        let desc = "";
+        if (i === 0) desc = "Classic rotating spinner";
+        else if (i === 1) desc = "Conic gradient donut";
+        else if (i === 2) desc = "Pulsing dots";
+        else if (i === 3) desc = "Dotted rotation";
+        else if (i === 4) desc = "Bouncing triangle";
+        else if (i === 5) desc = "Fluid morphing blob";
+        else if (i === 6) desc = "Wavy bars";
+        else if (i === 7) desc = "Double ripple pulse";
+        else if (i === 8) desc = "Glowing coin spin";
+        else if (i === 9) desc = "Flickering text icon";
+        else if (i === 10) desc = "Spinning top cone";
+        else if (i === 11) desc = "Rotating squares";
+        else if (i === 12) desc = "Dazzle stripe spin";
+        else if (i === 13) desc = "SVG dash circle";
+        else if (i === 14) desc = "Star shape rotate";
+        else if (i === 15) desc = "Dotted radial spin";
+        else if (i === 16) desc = "Elastic bars bounce";
+        else if (i === 17) desc = "Dual color spinner";
+        else if (i === 18) desc = "Emoji cyclone";
+        else if (i === 19) desc = "Ripple gradient";
+        else if (i === 20) desc = "Conic rainbow";
+        else if (i === 21) desc = "Pulsing rectangles";
+        else if (i === 22) desc = "Dashed ring spin";
+        else if (i === 23) desc = "Morphing square";
+        else if (i === 24) desc = "Orbiting particles";
+        else if (i === 25) desc = "Steps pattern spin";
+        else if (i === 26) desc = "Bursting dots";
+        else if (i === 27) desc = "3D flip cube";
+        else if (i === 28) desc = "Slide loading bar";
+        else if (i === 29) desc = "Hourglass bounce";
+        else if (i === 30) desc = "Double border spin";
+        else if (i === 31) desc = "Star pulse";
+        else if (i === 32) desc = "Morphing amoeba";
+        else if (i === 33) desc = "Spinning squares";
+        else if (i === 34) desc = "Bouncing triangle up";
+        else if (i === 35) desc = "Octagonal spin";
+        else if (i === 36) desc = "Shimmer slide";
+        else if (i === 37) desc = "Thin conic";
+        else if (i === 38) desc = "Rotating gear";
+        else if (i === 39) desc = "Skewed pulse dots";
+        else if (i === 40) desc = "Double ring spin";
+        else if (i === 41) desc = "Tilted 3D pattern";
+        else if (i === 42) desc = "Star glowing";
+        else if (i === 43) desc = "Colorful bars";
+        else if (i === 44) desc = "Neon spinner";
+        else if (i === 45) desc = "Morphing organic";
+        else if (i === 46) desc = "Wave bars bounce";
+        else if (i === 47) desc = "Stripes spin";
+        else if (i === 48) desc = "Crystal flip";
+        else if (i === 49) desc = "Prism blur vortex";
+        else desc = `Loader #${i+1} — ${level} style animation`;
+        return { title: `Loader ${i+1}`, level, desc };
+    });
+
+    // Additional JS driven loader (for loader 49 we will inject a dynamic progress ring, but keep loader 50 as the last advanced)
+    // Actually we'll replace loader #49 index (48 zero-based) with a custom JS interactive ring to demonstrate advanced JS integration.
+    // But we must maintain count 50, so we'll override metadata for index 48 (loader 49) to be a custom canvas/svg JS loader.
+    loaderMeta[48] = { title: "Loader 49", level: "Advanced (JS)", desc: "Interactive progress ring with dynamic value + auto increment" };
+    // keep 50th as advanced CSS prism
+
+    const grid = document.getElementById('loadersGrid');
+    
+    function buildLoaders() {
+        for (let i = 0; i < 50; i++) {
+            const card = document.createElement('div');
+            card.className = 'loader-card';
+            const previewDiv = document.createElement('div');
+            previewDiv.className = 'loader-preview';
+            const containerDiv = document.createElement('div');
+            containerDiv.className = 'loader-container';
+            
+            // special case for index 48 (loader 49) - custom interactive JS ring loader
+            if (i === 48) {
+                // interactive SVG ring with dynamic percentage
+                containerDiv.innerHTML = `
+                    <div class="js-loader">
+                        <svg class="js-progress-ring" width="60" height="60" viewBox="0 0 60 60">
+                            <circle cx="30" cy="30" r="26" fill="none" stroke="#e2e8f0" stroke-width="4"/>
+                            <circle class="progress-circle-fill" cx="30" cy="30" r="26" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round" stroke-dasharray="163.36" stroke-dashoffset="163.36"/>
+                        </svg>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                `;
+                const svgCircle = containerDiv.querySelector('.progress-circle-fill');
+                const percentSpan = containerDiv.querySelector('#progressPercent');
+                let progress = 0;
+                const circumference = 2 * Math.PI * 26; // ~163.36
+                const interval = setInterval(() => {
+                    progress = (progress + 2) % 101;
+                    const offset = circumference - (progress / 100) * circumference;
+                    if (svgCircle) svgCircle.style.strokeDashoffset = offset;
+                    if (percentSpan) percentSpan.innerText = `${progress}%`;
+                    if (progress === 100 && interval) {
+                        // reset after full cycle for demo fun
+                        setTimeout(() => { progress = 0; }, 400);
+                    }
+                }, 70);
+                // store interval cleanup optional (but keep as infinite demo)
+                containerDiv._cleanup = () => clearInterval(interval);
+                previewDiv.appendChild(containerDiv);
+            } 
+            else {
+                // standard CSS loaders based on class ldr{index+1}
+                const loaderDiv = document.createElement('div');
+                const loaderClass = `ldr${i+1}`;
+                loaderDiv.className = loaderClass;
+                // for multi-element loaders like .ldr3 etc we handle by inner structure, but class alone works because our CSS defines each.
+                // However some loaders like ldr3 expects span children, we need to add inner structure.
+                if (i+1 === 3) { loaderDiv.innerHTML = '<span></span><span></span><span></span>'; }
+                else if (i+1 === 7) { loaderDiv.innerHTML = '<div></div><div></div><div></div>'; }
+                else if (i+1 === 12) { loaderDiv.innerHTML = '<div></div><div></div><div></div>'; }
+                else if (i+1 === 17) { loaderDiv.innerHTML = '<div></div><div></div><div></div><div></div>'; }
+                else if (i+1 === 22) { loaderDiv.innerHTML = '<span></span><span></span><span></span>'; }
+                else if (i+1 === 25) { loaderDiv.innerHTML = '<div></div><div></div>'; }
+                else if (i+1 === 27) { loaderDiv.innerHTML = '<span></span><span></span><span></span>'; }
+                else if (i+1 === 32) { loaderDiv.innerHTML = '<span></span><span></span>'; }
+                else if (i+1 === 34) { loaderDiv.innerHTML = '<div></div><div></div>'; }
+                else if (i+1 === 40) { loaderDiv.innerHTML = '<div></div><div></div><div></div>'; }
+                else if (i+1 === 44) { loaderDiv.innerHTML = '<div></div><div></div><div></div>'; }
+                else if (i+1 === 47) { loaderDiv.innerHTML = '<div></div><div></div><div></div>'; }
+                else if (i+1 === 14) { loaderDiv.innerHTML = `<svg width="55" height="55" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="#3b82f6" stroke-width="4" stroke-dasharray="80" stroke-dashoffset="80"/></svg>`; const circ = loaderDiv.querySelector('circle'); if(circ) circ.style.animation = 'dashOffset 1.2s linear infinite'; }
+                else if (i+1 === 10) { loaderDiv.innerHTML = ''; loaderDiv.style.display='flex'; loaderDiv.style.alignItems='center'; loaderDiv.style.justifyContent='center'; loaderDiv.style.fontSize='2rem'; loaderDiv.innerText='⚡'; loaderDiv.style.animation='flicker 1.2s infinite'; loaderDiv.style.color='#0891b2';}
+                containerDiv.appendChild(loaderDiv);
+                previewDiv.appendChild(containerDiv);
+            }
+            
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'loader-info';
+            infoDiv.innerHTML = `<div class="loader-title">${loaderMeta[i].title} · ${loaderMeta[i].level}</div>
+                                 <div class="loader-desc">${loaderMeta[i].desc}</div>`;
+            card.appendChild(previewDiv);
+            card.appendChild(infoDiv);
+            grid.appendChild(card);
+        }
+    }
+    
+    buildLoaders();
+</script>
+</body>
+</html>
