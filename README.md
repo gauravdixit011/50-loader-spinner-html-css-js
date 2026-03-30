@@ -2,15 +2,6 @@
 
 A comprehensive collection of 50 unique, production-ready loader animations ranging from basic spinners to advanced interactive components. Built with pure HTML5, CSS3, and vanilla JavaScript.
 
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Loader Categories](#loader-categories)
-- [Complete Loader Reference](#complete-loader-reference)
-- [Installation](#installation)
-
-
 ## 🎯 Overview
 
 This project delivers 50 distinct loader animations in a single, self-contained HTML/CSS/JS file. Each loader is isolated in its own card, making it easy to preview, select, and integrate into any web project. The collection progresses from basic rotating spinners to advanced morphing shapes, 3D animations, and an interactive JavaScript-powered progress ring.
