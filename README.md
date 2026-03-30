@@ -9,11 +9,7 @@ A comprehensive collection of 50 unique, production-ready loader animations rang
 - [Loader Categories](#loader-categories)
 - [Complete Loader Reference](#complete-loader-reference)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Customization](#customization)
-- [Browser Support](#browser-support)
-- [Performance](#performance)
-- [License](#license)
+
 
 ## 🎯 Overview
 
